@@ -10,7 +10,7 @@ import * as path from 'path';
 
 import * as pkg from '../package.json';
 import {
-    getOsEnv, getOsEnvOptional, getOsPath, getOsPaths, normalizePort, toBool, toNumber
+    getOsEnv, getOsEnvOptional, getOsPath, getOsPaths, normalizePort, toBool,
 } from './lib/env';
 
 /**
@@ -56,16 +56,6 @@ export const env = {
         json: toBool(getOsEnvOptional('LOG_JSON')),
         output: getOsEnv('LOG_OUTPUT'),
     },
-    db: {
-        type: getOsEnv('TYPEORM_CONNECTION'),
-        host: getOsEnvOptional('TYPEORM_HOST'),
-        port: toNumber(getOsEnvOptional('TYPEORM_PORT')),
-        username: getOsEnvOptional('TYPEORM_USERNAME'),
-        password: getOsEnvOptional('TYPEORM_PASSWORD'),
-        database: getOsEnv('TYPEORM_DATABASE'),
-        synchronize: toBool(getOsEnvOptional('TYPEORM_SYNCHRONIZE')),
-        logging: toBool(getOsEnv('TYPEORM_LOGGING')),
-    },
     apidoc: {
         enabled: toBool(getOsEnv('APIDOC_ENABLED')),
         route: getOsEnv('APIDOC_ROUTE'),
@@ -78,18 +68,6 @@ export const env = {
     },
     imageserver: getOsEnv('IMAGE_SERVER'),
     storeUrl: getOsEnv('STORE_URL'),
-};
-
-export const mail = {
-    SERVICE: getOsEnv('MAIL_DRIVER'),
-    HOST: getOsEnv('MAIL_HOST'),
-    PORT: getOsEnv('MAIL_PORT'),
-    SECURE: getOsEnv('MAIL_SECURE'),
-    FROM: getOsEnv('MAIL_FROM'),
-    AUTH: {
-        user: getOsEnv('MAIL_USERNAME'),
-        pass: getOsEnv('MAIL_PASSWORD'),
-    },
 };
 
 // AWS S3 Access Key

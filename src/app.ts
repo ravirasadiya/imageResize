@@ -16,7 +16,6 @@ import { homeLoader } from './loaders/homeLoader';
 import { iocLoader } from './loaders/iocLoader';
 import { monitorLoader } from './loaders/monitorLoader';
 import { publicLoader } from './loaders/publicLoader';
-import { typeormLoader } from './loaders/typeormLoader';
 import { winstonLoader } from './loaders/winstonLoader';
 
 /**
@@ -38,7 +37,6 @@ bootstrapMicroframework({
         winstonLoader,
         iocLoader,
         eventDispatchLoader,
-        typeormLoader,
         expressLoader,
         monitorLoader,
         homeLoader,
