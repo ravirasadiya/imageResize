@@ -1,11 +1,3 @@
-/*
- * spurtcommerce API
- * version 3.0
- * Copyright (c) 2019 piccosoft ltd
- * Author piccosoft ltd <support@piccosoft.com>
- * Licensed under the MIT license.
- */
-
 import basicAuth from 'express-basic-auth';
 import monitor from 'express-status-monitor';
 import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';

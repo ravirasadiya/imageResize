@@ -1,11 +1,3 @@
-/*
- * spurtcommerce API
- * version 3.0
- * Copyright (c) 2019 piccosoft ltd
- * Author piccosoft ltd <support@piccosoft.com>
- * Licensed under the MIT license.
- */
-
 import { useContainer as classValidatorUseContainer } from 'class-validator';
 import { MicroframeworkLoader, MicroframeworkSettings } from 'microframework-w3tec';
 import { useContainer as routingUseContainer } from 'routing-controllers';

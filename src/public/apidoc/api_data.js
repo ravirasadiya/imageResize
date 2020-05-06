@@ -23,8 +23,8 @@ define({ "api": [
     "url": "",
     "version": "0.0.0",
     "filename": "src/public/apidoc/main.js",
-    "group": "C__Users_Ravi_Downloads_s_api_src_public_apidoc_main_js",
-    "groupTitle": "C__Users_Ravi_Downloads_s_api_src_public_apidoc_main_js",
+    "group": "C__Users_Ravi_Downloads_api_src_public_apidoc_main_js",
+    "groupTitle": "C__Users_Ravi_Downloads_api_src_public_apidoc_main_js",
     "name": ""
   },
   {
