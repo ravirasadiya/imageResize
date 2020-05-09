@@ -1,14 +1,5 @@
-/*
- * SpurtCommerce API
- * version 3.0
- * Copyright (c) 2019 PICCOSOFT
- * Author piccosoft <support@spurtcommerce.com>
- * Licensed under the MIT license.
- */
-
 import * as AWS from 'aws-sdk'; // Load the SDK for JavaScript
 import {Authorized, Body, Get, JsonController, Post, QueryParam, Req, Res} from 'routing-controllers';
-import {FolderNameRequest} from './requests/CreateFolderNameRequest';
 import {FileNameRequest} from './requests/CreateFileNameRequest';
 import {S3Service} from '../services/S3Service';
 import {ImageService} from '../services/ImageService';
@@ -26,135 +17,6 @@ AWS.config.update({
 export class MediaController {
     constructor(private s3Service: S3Service,
                 private imageService: ImageService) {
-    }
-
-    // Get Bucket Object List API
-    /**
-     * @api {get} /api/media/bucket-object-list bucket-object-list
-     * @apiGroup media
-     * @apiHeader {String} Authorization
-     * @apiParam (Request body) {Number} limit list limit
-     * @apiParam (Request body) {String} folderName Specific Folder Name
-     * @apiParamExample {json} Input
-     * {
-     *      "limit" : "",
-     *      "folderName" : "",
-     * }
-     * @apiSuccessExample {json} Success
-     * HTTP/1.1 200 OK
-     * {
-     *      "message": "Successfully get bucket object list!",
-     *      "status": "1"
-     * }
-     * @apiSampleRequest /api/media/bucket-object-list
-     * @apiErrorExample {json} media error
-     * HTTP/1.1 500 Internal Server Error
-     */
-    @Get('/bucket-object-list')
-    @Authorized()
-    public async ObjectList(@QueryParam('folderName') folderName: string, @QueryParam('limit') limit: number, @Req() request: any, @Res() response: any): Promise<any> {
-        console.log('working');
-        console.log('S3 folderName:- ' + folderName);
-        console.log('S3 Limit:- ' + limit);
-
-        let val: any;
-
-        if (env.imageserver === 's3') {
-            val = await this.s3Service.listBucker(limit, folderName);
-        } else {
-            val = await this.imageService.listFolders(limit, folderName);
-        }
-
-        console.log(val);
-
-        if (val) {
-            const successResponse: any = {
-                status: 1,
-                message: 'Successfully get bucket object list',
-                data: val,
-            };
-            return response.status(200).send(successResponse);
-        }
-    }
-
-    // Create Bucket Object --- Like Folder
-    /**
-     * @api {post} /api/media/create-folder Create Folder
-     * @apiGroup media
-     * @apiHeader {String} Authorization
-     * @apiParam (Request body) {String} folderName Specific Folder Name
-     * @apiParamExample {json} Input
-     * {
-     *      "folderName" : "",
-     * }
-     * @apiSuccessExample {json} Success
-     * HTTP/1.1 200 OK
-     * {
-     *      "message": "Successfully Created folder!",
-     *      "status": "1"
-     * }
-     * @apiSampleRequest /api/media/create-folder
-     * @apiErrorExample {json} media error
-     * HTTP/1.1 500 Internal Server Error
-     */
-    @Post('/create-folder')
-    @Authorized()
-    public async CreateFolder(@Body({validate: true}) folderNameValidation: FolderNameRequest, @Req() request: any, @Res() response: any): Promise<any> {
-        console.log('working');
-        console.log('S3 folderName:- ' + folderNameValidation.folderName);
-
-        let val: any;
-        if (env.imageserver === 's3') {
-            val = await this.s3Service.createFolder(folderNameValidation.folderName);
-        } else {
-            val = await this.imageService.createFolder(folderNameValidation.folderName);
-        }
-
-        if (val) {
-            const successResponse: any = {
-                status: 1,
-                message: 'Successfully created folder',
-                data: val,
-            };
-            return response.status(200).send(successResponse);
-        }
-    }
-
-    // Delete Bucket Object --- Like Folder
-    /**
-     * @api {post} /api/media/delete-folder delete folder API
-     * @apiGroup media
-     * @apiHeader {String} Authorization
-     * @apiParam (Request body) {String} folderName Specific Folder Name
-     * @apiParamExample {json} Input
-     * {
-     *      "folderName" : "",
-     * }
-     * @apiSuccessExample {json} Success
-     * HTTP/1.1 200 OK
-     * {
-     *      "message": "Successfully Deleted folder!",
-     *      "status": "1"
-     * }
-     * @apiSampleRequest /api/media/delete-folder
-     * @apiErrorExample {json} media error
-     * HTTP/1.1 500 Internal Server Error
-     */
-    @Post('/delete-folder')
-    @Authorized()
-    public async DeleteFolder(@Body({validate: true}) folderNameValidation: FolderNameRequest, @Req() request: any, @Res() response: any): Promise<any> {
-        console.log('working');
-        console.log('S3 folderName:- ' + folderNameValidation.folderName);
-        const val: any = await this.s3Service.deleteFolder(folderNameValidation.folderName);
-        console.log(val);
-
-        if (val) {
-            const successResponse: any = {
-                status: 1,
-                message: 'Successfully deleted folder',
-            };
-            return response.status(200).send(successResponse);
-        }
     }
 
     // Delete file API
@@ -333,7 +195,7 @@ export class MediaController {
                      const _img = new Buffer(val, 'base64');
 
                      response.writeHead(200, {
-                         'Content-Type': 'image/jpeg',
+                         'Content-Type': 'image/webp',
                          'Content-Length': _img.length,
                        });
                      response.end(_img);
@@ -345,49 +207,6 @@ export class MediaController {
             }
         } else {
             return response.status(400).send({status: 0, message: 'Only allow jpg/jpeg/png format image!'});
-        }
-    }
-
-    // Get folder API
-    /**
-     * @api {get} /api/media/search-folder search Folder API
-     * @apiGroup media
-     * @apiHeader {String} Authorization
-     * @apiParam (Request body) {String} folderName  folderName
-     * @apiParamExample {json} Input
-     * {
-     *      "FolderName" : "",
-     * }
-     * @apiSuccessExample {json} Success
-     * HTTP/1.1 200 OK
-     * {
-     *      "message": "Successfully get Folder!",
-     *      "status": "1"
-     * }
-     * @apiSampleRequest /api/media/search-folder
-     * @apiErrorExample {json} media error
-     * HTTP/1.1 500 Internal Server Error
-     */
-    @Get('/search-folder')
-    @Authorized()
-    public async getFolder(@QueryParam('folderName') folderName: string, @Req() request: any, @Res() response: any): Promise<any> {
-        console.log('working');
-        console.log('S3 folderName:- ' + folderName);
-        let val: any;
-        if (env.imageserver === 's3') {
-            val = await this.s3Service.getFolder(folderName);
-        } else {
-            val = await this.imageService.getFolder(folderName);
-        }
-        console.log(val);
-
-        if (val) {
-            const successResponse: any = {
-                status: 1,
-                message: 'Successfully got folder details',
-                data: val,
-            };
-            return response.status(200).send(successResponse);
         }
     }
 }

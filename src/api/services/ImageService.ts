@@ -136,7 +136,8 @@ export class ImageService {
 
                 const img = new Buffer(image, 'base64');
                 await sharp(img)
-                    .resize(height, width)
+                    .resize(width, height)
+                    .webp()
                     .toBuffer()
                     .then(resizedImageBuffer => {
                         const resizedImageData = resizedImageBuffer.toString('base64');
