@@ -1,7 +1,7 @@
 {
-  "name": "SpurtCommerce",
+  "name": "Ravi",
   "version": "3.0.0",
-  "description": "SpurtCommerce RESTFUL API",
+  "description": "Ravi RESTFUL API",
   "main": "src/app.ts",
   "scripts": {
     "start": "nps",
@@ -27,10 +27,10 @@
     "express"
   ],
   "apidoc": {
-    "name": "SpurtCommerce V3.0.0",
+    "name": "Ravi V3.0.0",
     "version": "3.0.0",
-    "description": "SpurtCommerce RESTFUL API Document",
-    "title": "SpurtCommerce RESTFUL API Document"
+    "description": "Ravi RESTFUL API Document",
+    "title": "Ravi RESTFUL API Document"
   },
   "author": "Piccosoft",
   "dependencies": {
